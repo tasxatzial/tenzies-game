@@ -84,13 +84,13 @@ export default function App() {
       {isWon && <Confetti width={window.innerWidth} height={window.innerHeight}/>}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-      <button className="new-game-button" onClick={startNewGame}>New game</button>
+      <button className="button new-game-button" onClick={startNewGame}>New game</button>
       <div className="dice-container">
         {dieComponents}
       </div>
       {isWon && <p className="game-won-msg" role="alert">You won!</p>}
       {showStartNewGameTip && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
-      <button className="roll-button" onClick={rollDice}>Roll</button>
+      <button className="button roll-button" onClick={rollDice}>Roll</button>
     </main>
   )
 }

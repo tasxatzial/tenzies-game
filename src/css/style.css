@@ -44,36 +44,40 @@ main {
   margin-bottom: 2rem;
 }
 
-.roll-button {
-  background-color: #5035FF;
-  border: none;
+.button {
   border-radius: 0.2375rem;
   box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.15);
-  color: white;
   display: block;
   font-family: inherit;
-  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   margin-inline: auto;
+}
+
+.roll-button {
+  background-color: #5035FF;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
   padding: 0.6em 1.75em;
 }
 
-.roll-button:active {
+.new-game-button {
+  background-color: white;
+  border: 1px solid rgb(182, 182, 182);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  padding: 0.6em 1.25em;
+}
+
+.button:active {
   position: relative;
   top: 1px;
 }
 
-.die-button:focus-visible,
-.roll-button:focus-visible {
-    outline: 2px dashed black;
-    outline-offset: 2px;
-}
-
-.new-game-button {
-  display: block;
-  margin-inline: auto;
-  margin-bottom: 2rem;
+.button:focus-visible {
+  outline: 2px dashed black;
+  outline-offset: 2px;
 }
 
 .game-won-msg,
