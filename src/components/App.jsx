@@ -1,5 +1,6 @@
 import React from 'react';
 import Die from './Die.jsx';
+
 import { nanoid } from 'nanoid';
 
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
       <div className="dice-container">
         {dieComponents}
       </div>
-      <button className="roll-btn">Roll</button>
+      <button className="roll-button">Roll</button>
     </main>
   )
 }

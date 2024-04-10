@@ -1,0 +1,67 @@
+.die-container {
+    width: 2.5rem;
+}
+
+.die-button {
+    --gap: 6%;
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: white;
+    border: none;
+    border-radius: var(--gap);
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
+    cursor: pointer;
+    display: grid;
+    grid: repeat(3, 1fr) / repeat(3, 1fr);
+    grid-template-areas:
+        "top-left top-center top-right"
+        "middle-left middle-center middle-right"
+        "bottom-left bottom-center bottom-right";
+    justify-items: center;
+    margin: var(--gap);
+    padding: var(--gap);
+    width: calc(100% - 2 * var(--gap));
+}
+
+.die-dot {
+  aspect-ratio: 1;
+  background-image: radial-gradient(rgb(90, 90, 90), black);
+  border-radius: 50%;
+  width: 70%;
+}
+
+.dot-top-left {
+    grid-area: top-left;
+}
+
+.dot-top-center {
+    grid-area: top-center;
+}
+
+.dot-top-right {
+    grid-area: top-right;
+}
+
+.dot-middle-left {
+    grid-area: middle-left;
+}
+
+.dot-center {
+    grid-area: middle-center;
+}
+
+.dot-middle-right {
+    grid-area: middle-right;
+}
+
+.dot-bottom-left {
+    grid-area: bottom-left;
+}
+
+.dot-bottom-center {
+    grid-area: bottom-center;
+}
+
+.dot-bottom-right {
+    grid-area: bottom-right;
+}
