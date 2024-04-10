@@ -4,9 +4,25 @@ import Confetti from 'react-confetti';
 import Die from './Die.jsx';
 
 export default function App() {
-  const [dice, setDice] = React.useState(initializeDice());
-  const [isWon, setIsWon] = React.useState(false);
-  const [showStartNewGameTip, setShowStartNewGameTip] = React.useState(false);
+  const [dice, setDice] = React.useState(() => {
+    if (localStorage.getItem('tenzies')) {
+      return JSON.parse(localStorage.getItem('tenzies-dice'));
+    }
+    else {
+      return initializeDice();
+    }
+  });
+
+  const [isWon, setIsWon] = React.useState(() => {
+    if (localStorage.getItem('tenzies')) {
+      return JSON.parse(localStorage.getItem('tenzies-is-won'));
+    }
+    else {
+      return false;
+    }
+  });
+
+  const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   React.useEffect(() => {
     const firstDieValue = dice[0].value;
@@ -14,7 +30,13 @@ export default function App() {
     if (gameOver) {
       setIsWon(true);
     }
+    localStorage.setItem('tenzies', 'true');
+    localStorage.setItem('tenzies-dice', JSON.stringify(dice));
   }, [dice]);
+
+  React.useEffect(() => {
+    localStorage.setItem('tenzies-is-won', JSON.stringify(isWon));
+  }, [isWon]);
 
   function genNewDie() {
     return {
@@ -52,7 +74,7 @@ export default function App() {
 
   function rollDice() {
     if (isWon) {
-      setShowStartNewGameTip(true);
+      setShowStartNewGameMsg(true);
       return;
     }
     setDice(prevDice => {
@@ -72,7 +94,7 @@ export default function App() {
   function startNewGame() {
     setDice(() => initializeDice());
     setIsWon(false);
-    setShowStartNewGameTip(false);
+    setShowStartNewGameMsg(false);
   }
 
   const dieComponents = dice.map(die => {
@@ -89,7 +111,7 @@ export default function App() {
         {dieComponents}
       </div>
       {isWon && <p className="game-won-msg" role="alert">You won!</p>}
-      {showStartNewGameTip && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
+      {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
       <button className="button roll-button" onClick={rollDice}>Roll</button>
     </main>
   )
