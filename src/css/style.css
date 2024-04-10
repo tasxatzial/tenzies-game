@@ -64,3 +64,10 @@ main {
     outline: 2px dashed black;
     outline-offset: 2px;
 }
+
+.new-game-button {
+  display: block;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+

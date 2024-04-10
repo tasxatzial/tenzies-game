@@ -54,6 +54,10 @@ export default function App() {
     });
   }
 
+  function startNewGame() {
+    setDice(() => initializeDice());
+  }
+
   const dieComponents = dice.map(die => {
     return <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDie={() => holdDie(die.id)} />
   })
@@ -62,6 +66,7 @@ export default function App() {
     <main>
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <button className="new-game-button" onClick={startNewGame}>New game</button>
       <div className="dice-container">
         {dieComponents}
       </div>
