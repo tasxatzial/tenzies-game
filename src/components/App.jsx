@@ -105,7 +105,7 @@ export default function App() {
     <main>
       {isWon && <Confetti width={window.innerWidth} height={window.innerHeight}/>}
       <h1 className="title">Tenzies</h1>
-      <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
       <button className="button new-game-button" onClick={startNewGame}>New game</button>
       <div className="dice-container">
         {dieComponents}
