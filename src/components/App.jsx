@@ -24,12 +24,12 @@ export default function App() {
 
   return (
     <main>
-      <h1>Tenzies</h1>
-      <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-      <div>
+      <h1 className="title">Tenzies</h1>
+      <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <div className="dice-container">
         {dieComponents}
       </div>
-      <button>Roll</button>
+      <button className="roll-btn">Roll</button>
     </main>
   )
 }
