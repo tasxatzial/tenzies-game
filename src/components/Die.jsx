@@ -46,11 +46,13 @@ function createDotPositions(number) {
 
 export default function Die(props) {
   const dotPositions = createDotPositions(props.value);
-  const dieDots = dotPositions.map(position => <DieDot key={position.id} position={position.name} />);
+  const dieDots = dotPositions.map(position => {
+    return <DieDot key={position.id} position={position.name} />
+  });
 
   return (
     <div className="die-container">
-      <button className="die-button">
+      <button className={props.isHeld ? "die-button is-held" : "die-button"} onClick={props.holdDie}>
         {dieDots}
       </button>
     </div>

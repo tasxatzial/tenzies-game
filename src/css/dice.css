@@ -22,6 +22,10 @@
     width: 100%;
 }
 
+.die-button.is-held {
+  background-color: #59E391;
+}
+
 .die-dot {
   aspect-ratio: 1;
   background-image: radial-gradient(rgb(90, 90, 90), black);
