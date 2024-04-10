@@ -4,6 +4,16 @@ import Die from './Die.jsx';
 
 export default function App() {
   const [dice, setDice] = React.useState(initializeDice());
+  const [isWon, setIsWon] = React.useState(false);
+  const [showStartNewGameTip, setShowStartNewGameTip] = React.useState(false);
+
+  React.useEffect(() => {
+    const firstDieValue = dice[0].value;
+    const gameOver = dice.every(die => die.value === firstDieValue && die.isHeld);
+    if (gameOver) {
+      setIsWon(true);
+    }
+  }, [dice]);
 
   function genNewDie() {
     return {
@@ -40,6 +50,10 @@ export default function App() {
   }
 
   function rollDice() {
+    if (isWon) {
+      setShowStartNewGameTip(true);
+      return;
+    }
     setDice(prevDice => {
       const newDice = [];
       prevDice.forEach(die => {
@@ -56,6 +70,8 @@ export default function App() {
 
   function startNewGame() {
     setDice(() => initializeDice());
+    setIsWon(false);
+    setShowStartNewGameTip(false);
   }
 
   const dieComponents = dice.map(die => {
@@ -70,6 +86,8 @@ export default function App() {
       <div className="dice-container">
         {dieComponents}
       </div>
+      {isWon && <p className="game-won-msg" role="alert">You won!</p>}
+      {showStartNewGameTip && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
       <button className="roll-button" onClick={rollDice}>Roll</button>
     </main>
   )
