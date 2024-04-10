@@ -45,15 +45,21 @@ function createDotPositions(number) {
 }
 
 export default function Die(props) {
-  const dotPositions = createDotPositions(props.value);
+  const dotPositions = createDotPositions(props.die.value);
   const dieDots = dotPositions.map(position => {
     return <DieDot key={position.id} position={position.name} />
   });
 
+  let srText = props.die.value.toString();
+  if (props.die.isHeld) {
+    srText = "Frozen " + srText;
+  }
+
   return (
     <div className="die-container">
-      <button className={props.isHeld ? "die-button is-held" : "die-button"} onClick={props.holdDie}>
+      <button className={props.die.isHeld ? "die-button is-held" : "die-button"} onClick={props.holdDie}>
         {dieDots}
+        <span className="sr-only" aria-live="polite">{srText}</span>
       </button>
     </div>
   )

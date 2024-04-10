@@ -76,7 +76,7 @@ export default function App() {
   }
 
   const dieComponents = dice.map(die => {
-    return <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDie={() => holdDie(die.id)} />
+    return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   })
 
   return (
