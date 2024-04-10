@@ -1,5 +1,5 @@
 .die-container {
-    width: 2.5rem;
+    width: 3.5rem;
 }
 
 .die-button {
@@ -18,9 +18,8 @@
         "middle-left middle-center middle-right"
         "bottom-left bottom-center bottom-right";
     justify-items: center;
-    margin: var(--gap);
     padding: var(--gap);
-    width: calc(100% - 2 * var(--gap));
+    width: 100%;
 }
 
 .die-dot {
