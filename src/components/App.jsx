@@ -39,6 +39,21 @@ export default function App() {
     });
   }
 
+  function rollDice() {
+    setDice(prevDice => {
+      const newDice = [];
+      prevDice.forEach(die => {
+        if (die.isHeld) {
+          newDice.push(die);
+        }
+        else {
+          newDice.push(genNewDie());
+        }
+      });
+      return newDice;
+    });
+  }
+
   const dieComponents = dice.map(die => {
     return <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDie={() => holdDie(die.id)} />
   })
@@ -50,7 +65,7 @@ export default function App() {
       <div className="dice-container">
         {dieComponents}
       </div>
-      <button className="roll-button">Roll</button>
+      <button className="roll-button" onClick={rollDice}>Roll</button>
     </main>
   )
 }
