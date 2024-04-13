@@ -14,6 +14,7 @@ While my implementation follows the course content loosely, it isn't an exact ma
 * A message is displayed to start a new game when the current game is won and the roll button is clicked.
 * Game state is saved in localStorage.
 * The instructions clearly state when the game is won.
+* A custom hook was used to make Confetti properly respond to window resize events.
 
 ## Dependencies
 
