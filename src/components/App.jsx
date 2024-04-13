@@ -1,7 +1,8 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import Confetti from 'react-confetti';
+import ResponsiveConfetti from './ResponsiveConfetti.jsx';
 import Die from './Die.jsx';
+
 
 export default function App() {
   const [dice, setDice] = React.useState(() => {
@@ -103,7 +104,7 @@ export default function App() {
 
   return (
     <main>
-      {isWon && <Confetti width={window.innerWidth} height={window.innerHeight}/>}
+      {isWon && <ResponsiveConfetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
       <button className="button new-game-button" onClick={startNewGame}>New game</button>
