@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 import ResponsiveConfetti from './ResponsiveConfetti.jsx';
 import Die from './Die.jsx';
 
@@ -39,9 +38,9 @@ export default function App() {
     localStorage.setItem('tenzies-is-won', JSON.stringify(isWon));
   }, [isWon]);
 
-  function genNewDie() {
+  function genNewDie(id) {
     return {
-      id: nanoid(),
+      id: id,
       value: Math.floor(Math.random() * 6) + 1,
       isHeld: false
     }
@@ -50,7 +49,7 @@ export default function App() {
   function initializeDice() {
     const dice = [];
     for (let i = 0; i < 10; i++) {
-      dice.push(genNewDie());
+      dice.push(genNewDie(i));
     }
     return dice;
   }
@@ -85,7 +84,7 @@ export default function App() {
           newDice.push(die);
         }
         else {
-          newDice.push(genNewDie());
+          newDice.push(genNewDie(die.id));
         }
       });
       return newDice;
