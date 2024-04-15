@@ -55,7 +55,6 @@ export default function Die(props) {
     srText = "Frozen " + srText;
   }
 
-  console.log("die rendered")
   return (
     <div className="die-container">
       <button className={props.die.isHeld ? "die-button is-held" : "die-button"} onClick={props.holdDie}>
