@@ -5,21 +5,11 @@ import Die from './Die.jsx';
 
 export default function App() {
   const [dice, setDice] = React.useState(() => {
-    if (localStorage.getItem('tenzies')) {
-      return JSON.parse(localStorage.getItem('tenzies-dice'));
-    }
-    else {
-      return initializeDice();
-    }
+    return JSON.parse(localStorage.getItem('tenzies-dice')) || initializeDice();
   });
 
   const [isWon, setIsWon] = React.useState(() => {
-    if (localStorage.getItem('tenzies')) {
-      return JSON.parse(localStorage.getItem('tenzies-is-won'));
-    }
-    else {
-      return false;
-    }
+    return JSON.parse(localStorage.getItem('tenzies-is-won')) || false;
   });
 
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
@@ -30,7 +20,6 @@ export default function App() {
     if (gameOver) {
       setIsWon(true);
     }
-    localStorage.setItem('tenzies', 'true');
     localStorage.setItem('tenzies-dice', JSON.stringify(dice));
   }, [dice]);
 
