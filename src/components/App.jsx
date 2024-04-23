@@ -91,17 +91,22 @@ export default function App() {
   })
 
   return (
-    <main>
-      {isWon && <ResponsiveConfetti />}
-      <h1 className="title">Tenzies</h1>
-      <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
-      <button className="button new-game-button" onClick={startNewGame}>New game</button>
-      {isWon && <p className="game-won-msg" role="alert">You won!</p>}
-      <div className="dice-container">
-        {dieComponents}
-      </div>
-      {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
-      <button className="button roll-button" onClick={rollDice}>Roll</button>
-    </main>
+    <>
+      <main>
+        {isWon && <ResponsiveConfetti />}
+        <h1 className="title">Tenzies</h1>
+        <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
+        <button className="button new-game-button" onClick={startNewGame}>New game</button>
+        {isWon && <p className="game-won-msg" role="alert">You won!</p>}
+        <div className="dice-container">
+          {dieComponents}
+        </div>
+        {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
+        <button className="button roll-button" onClick={rollDice}>Roll</button>
+      </main>
+      <footer>
+        <p className="github-info"><a href="https://github.com/tasxatzial/tenzies-game" className="github-link">See the project on GitHub</a></p>
+      </footer>
+    </>
   )
 }
