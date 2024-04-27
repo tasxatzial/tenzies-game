@@ -1,6 +1,6 @@
 import React from 'react';
-import ResponsiveConfetti from './ResponsiveConfetti.jsx';
-import Die from './Die.jsx';
+import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
+import Die from './components/Die.jsx';
 
 
 export default function App() {
@@ -27,7 +27,7 @@ export default function App() {
     localStorage.setItem('tenzies-is-won', JSON.stringify(isWon));
   }, [isWon]);
 
-  function genNewDie(id) {
+  function createDie(id) {
     return {
       id: id,
       value: Math.floor(Math.random() * 6) + 1,
@@ -38,7 +38,7 @@ export default function App() {
   function initializeDice() {
     const dice = [];
     for (let i = 0; i < 10; i++) {
-      dice.push(genNewDie(i));
+      dice.push(createDie(i));
     }
     return dice;
   }
@@ -73,7 +73,7 @@ export default function App() {
           newDice.push(die);
         }
         else {
-          newDice.push(genNewDie(die.id));
+          newDice.push(createDie(die.id));
         }
       });
       return newDice;
