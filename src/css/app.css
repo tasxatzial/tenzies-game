@@ -85,15 +85,16 @@ main {
   padding: 0.6em 1.25em;
 }
 
-.button:active {
-  position: relative;
-  top: 1px;
-}
-
 .button:focus-visible,
 .die-button:focus-visible {
   outline: 2px dashed black;
   outline-offset: 2px;
+}
+
+.button:active {
+  box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.15);
+  position: relative;
+  top: 1px;
 }
 
 .game-won-msg {
