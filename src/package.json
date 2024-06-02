@@ -1,7 +1,8 @@
 {
   "name": "tenzies-game",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Tenzies game",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +11,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "author": "Anastasios Chatzialexiou",
+  "license": "MIT",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
