@@ -1,6 +1,8 @@
 # Tenzies game
 
-A project from the React basics module of the [Frontend Career Path](https://scrimba.com/learn/frontend) course on [Scrimba](https://scrimba.com).
+A game with a very simple purpose: Roll and match all ten dice to the same number.
+
+This is a project from the React basics module of the [Frontend Career Path](https://scrimba.com/learn/frontend) course on [Scrimba](https://scrimba.com).
 
 ## Implementation
 
