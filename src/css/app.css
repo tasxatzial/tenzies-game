@@ -110,6 +110,14 @@ main {
   margin-bottom: 1em;
 }
 
+.timers {
+  display: flex;
+  font-size: 1.25rem;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
 .github-info {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;

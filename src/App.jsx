@@ -98,6 +98,14 @@ export default function App() {
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={startNewGame}>New game</button>
         {isWon && <p className="game-won-msg" role="alert">You won!</p>}
+        <div className="timers">
+          <div>
+            <div>Time</div><span>0</span>
+          </div>
+          <div>
+            <div>Best</div><span>0</span>
+          </div>
+        </div>
         <div className="dice-container">
           {dieComponents}
         </div>
