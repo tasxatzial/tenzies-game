@@ -138,7 +138,7 @@ main {
   width: 0.3em;
 }
 
-.endgame-overlay {
+.dice-overlay {
   align-items: center;
   background-color: rgb(var(--game-bg-color) / 0.85);
   color: var(--color-primary-accent);

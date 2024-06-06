@@ -5,25 +5,14 @@ import Time from './components/Time.jsx';
 
 export default function App() {
   const [dice, setDice] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-dice')) || initializeDice();
+    return initializeDice();
   });
-
-  const [isWon, setIsWon] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-is-won')) || false;
-  });
-
-  const [gameStarted, setGameStarted] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-game-started')) || false;
-  });
-
-  const [timeCount, setTimeCount] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-time-count')) || 0;
-  });
-
+  const [isWon, setIsWon] = React.useState(false);
+  const [gameStarted, setGameStarted] = React.useState(false);
+  const [timeCount, setTimeCount] = React.useState(0);
   const [bestTimeCount, setBestTimeCount] = React.useState(() => {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
   });
-
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   React.useEffect(() => {
@@ -37,21 +26,14 @@ export default function App() {
         localStorage.setItem('tenzies-best-time-count', timeCount);
       }
     }
-    localStorage.setItem('tenzies-dice', JSON.stringify(dice));
   }, [dice]);
 
   React.useEffect(() => {
-    localStorage.setItem('tenzies-is-won', JSON.stringify(isWon));
-  }, [isWon]);
-
-  React.useEffect(() => {
-    localStorage.setItem('tenzies-game-started', JSON.stringify(gameStarted));
     let interval;
     if (gameStarted) {
       interval = setInterval(() => {
         setTimeCount(prevTimeCount => {
           const newTimeCount = prevTimeCount + 1;
-          localStorage.setItem('tenzies-time-count', newTimeCount);
           return newTimeCount;
         });
       }, 100);
@@ -129,7 +111,7 @@ export default function App() {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
 
-  const endgameOverLayClass = `${isWon ? "visible-overlay" : ""} endgame-overlay`;
+  const diceOverLayClass = `${isWon ? "visible-overlay" : ""} dice-overlay`;
 
   return (
     <>
@@ -143,7 +125,7 @@ export default function App() {
           <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
-          <div className={endgameOverLayClass} aria-live="polite">You won!</div>
+          <div className={diceOverLayClass} aria-live="polite">You won!</div>
           {dieComponents}
         </div>
         {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
