@@ -159,6 +159,10 @@ main {
   visibility: visible;
 }
 
+.huge-overlay-text {
+  font-size: 4rem;
+}
+
 .github-info {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;

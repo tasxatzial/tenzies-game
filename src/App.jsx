@@ -146,6 +146,9 @@ export default function App() {
   if (isWon || !gameStarted || countdown > 0) {
     diceOverLayClass += ' visible-overlay';
   }
+  if (countdown > 0) {
+    diceOverLayClass += ' huge-overlay-text';
+  }
 
   let diceOverLayText;
   if (isWon) {
