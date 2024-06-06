@@ -81,7 +81,7 @@ export default function App() {
   }
 
   function rollDice() {
-    if (isWon) {
+    if (isWon || !gameStarted) {
       setShowStartNewGameMsg(true);
       return;
     }
@@ -99,12 +99,17 @@ export default function App() {
     });
   }
 
-  function startNewGame() {
-    setDice(() => initializeDice());
-    setIsWon(false);
-    setShowStartNewGameMsg(false);
-    setGameStarted(true);
-    setTimeCount(0);
+  function toggleGame() {
+    if (gameStarted) {
+      setGameStarted(false);
+    }
+    else {
+      setDice(() => initializeDice());
+      setIsWon(false);
+      setShowStartNewGameMsg(false);
+      setGameStarted(true);
+      setTimeCount(0);
+    }
   }
 
   const dieComponents = dice.map(die => {
@@ -113,6 +118,7 @@ export default function App() {
 
   const diceOverLayClass = `${(isWon || !gameStarted) ? "visible-overlay" : ""} dice-overlay`;
   const diceOverLayText = isWon ? "You won!" : "";
+  const gameButtonText = gameStarted ? "Stop" : "New game";
 
   return (
     <>
@@ -120,7 +126,7 @@ export default function App() {
         {isWon && <ResponsiveConfetti />}
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
-        <button className="button new-game-button" onClick={startNewGame}>New game</button>
+        <button className="button new-game-button" onClick={toggleGame} aria-live="polite">{gameButtonText}</button>
         <div className="times-container">
           <Time text="Time" time={timeCount} />
           <Time text="Best" time={bestTimeCount} />

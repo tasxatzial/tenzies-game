@@ -155,7 +155,7 @@ main {
 
 .visible-overlay {
   opacity: 1;
-  transition: opacity 0.3s ease-in-out, visibility 0s 0s;
+  transition: opacity 0.2s ease-in-out, visibility 0s 0s;
   visibility: visible;
 }
 
