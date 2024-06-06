@@ -140,7 +140,7 @@ main {
 
 .dice-overlay {
   align-items: center;
-  background-color: rgb(var(--game-bg-color) / 0.85);
+  background-color: rgb(var(--game-bg-color) / 0.9);
   color: var(--color-primary-accent);
   display: flex;
   font-size: 1.8rem;
