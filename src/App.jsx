@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
 import Die from './components/Die.jsx';
-
+import Time from './components/Time.jsx';
 
 export default function App() {
   const [dice, setDice] = React.useState(() => {
@@ -129,13 +129,9 @@ export default function App() {
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={startNewGame}>New game</button>
         {isWon && <p className="game-won-msg" role="alert">You won!</p>}
-        <div className="timers">
-          <div>
-            <div>Time</div><span>{timeCount}</span>
-          </div>
-          <div>
-            <div>Best</div><span>0</span>
-          </div>
+        <div className="times-container">
+          <Time text="Time" time={timeCount} />
+          <Time text="Best" time={0} />
         </div>
         <div className="dice-container">
           {dieComponents}

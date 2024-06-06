@@ -110,12 +110,36 @@ main {
   margin-bottom: 1em;
 }
 
-.timers {
+.times-container {
   display: flex;
   font-size: 1.25rem;
-  gap: 2em;
+  gap: 1em;
   justify-content: center;
   margin-bottom: 1em;
+}
+
+.time-container {
+  width: 4em;
+}
+
+.time-text {
+  border-bottom: 2px solid lightgray;
+}
+
+.time-counter {
+  white-space: nowrap;
+}
+
+.time-digit {
+  display: inline-flex;
+  justify-content: center;
+  width: 0.62em;
+}
+
+.time-dot {
+  display: inline-flex;
+  justify-content: center;
+  width: 0.3em;
 }
 
 .github-info {
