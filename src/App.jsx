@@ -12,6 +12,14 @@ export default function App() {
     return JSON.parse(localStorage.getItem('tenzies-is-won')) || false;
   });
 
+  const [gameStarted, setGameStarted] = React.useState(() => {
+    return JSON.parse(localStorage.getItem('tenzies-game-started')) || false;
+  });
+
+  const [timeCount, setTimeCount] = React.useState(() => {
+    return JSON.parse(localStorage.getItem('tenzies-time-count')) || 0;
+  });
+
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   React.useEffect(() => {
@@ -19,6 +27,7 @@ export default function App() {
     const gameOver = dice.every(die => die.value === firstDieValue && die.isHeld);
     if (gameOver) {
       setIsWon(true);
+      setGameStarted(false);
     }
     localStorage.setItem('tenzies-dice', JSON.stringify(dice));
   }, [dice]);
@@ -26,6 +35,26 @@ export default function App() {
   React.useEffect(() => {
     localStorage.setItem('tenzies-is-won', JSON.stringify(isWon));
   }, [isWon]);
+
+  React.useEffect(() => {
+    localStorage.setItem('tenzies-game-started', JSON.stringify(gameStarted));
+    let interval;
+    if (gameStarted) {
+      interval = setInterval(() => {
+        setTimeCount(prevTimeCount => {
+          const newTimeCount = prevTimeCount + 1;
+          localStorage.setItem('tenzies-time-count', newTimeCount);
+          return newTimeCount;
+        });
+      }, 100);
+    }
+    else {
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    }
+  }, [gameStarted]);
 
   function createDie(id) {
     return {
@@ -84,11 +113,13 @@ export default function App() {
     setDice(() => initializeDice());
     setIsWon(false);
     setShowStartNewGameMsg(false);
+    setGameStarted(true);
+    setTimeCount(0);
   }
 
   const dieComponents = dice.map(die => {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
-  })
+  });
 
   return (
     <>
@@ -100,7 +131,7 @@ export default function App() {
         {isWon && <p className="game-won-msg" role="alert">You won!</p>}
         <div className="timers">
           <div>
-            <div>Time</div><span>0</span>
+            <div>Time</div><span>{timeCount}</span>
           </div>
           <div>
             <div>Best</div><span>0</span>
