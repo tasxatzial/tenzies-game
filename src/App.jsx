@@ -129,6 +129,8 @@ export default function App() {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
 
+  const endgameOverLayClass = `${isWon ? "visible-overlay" : ""} endgame-overlay`;
+
   return (
     <>
       <main>
@@ -141,7 +143,7 @@ export default function App() {
           <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
-          {isWon && <div className="endgame-overlay" aria-live="polite">You won!</div>}
+          <div className={endgameOverLayClass} aria-live="polite">You won!</div>
           {dieComponents}
         </div>
         {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
