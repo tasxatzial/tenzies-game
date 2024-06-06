@@ -10,6 +10,7 @@ export default function App() {
   const [isWon, setIsWon] = React.useState(false);
   const [gameStarted, setGameStarted] = React.useState(false);
   const [timeCount, setTimeCount] = React.useState(0);
+  const [counter, setCounter] = React.useState(3);
   const [bestTimeCount, setBestTimeCount] = React.useState(() => {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
   });
@@ -31,12 +32,20 @@ export default function App() {
   React.useEffect(() => {
     let interval;
     if (gameStarted) {
-      interval = setInterval(() => {
-        setTimeCount(prevTimeCount => {
-          const newTimeCount = prevTimeCount + 1;
-          return newTimeCount;
-        });
-      }, 100);
+      console.log(counter)
+      if (counter > 0) {
+        console.log(counter)
+        interval = setInterval(() => {
+          setCounter(prevTimeCount => prevTimeCount - 1);
+        }, 1000);
+      }
+      else {
+        console.log(1)
+        clearInterval(interval);
+        interval = setInterval(() => {
+          setTimeCount(prevTimeCount =>  prevTimeCount + 1);
+        }, 100)
+      }
     }
     else {
       clearInterval(interval);
@@ -44,7 +53,7 @@ export default function App() {
     return () => {
       clearInterval(interval);
     }
-  }, [gameStarted]);
+  }, [gameStarted, counter]);
 
   function createDie(id) {
     return {
@@ -102,6 +111,7 @@ export default function App() {
   function toggleGame() {
     if (gameStarted) {
       setGameStarted(false);
+      setCounter(3);
     }
     else {
       setDice(() => initializeDice());
@@ -109,6 +119,7 @@ export default function App() {
       setShowStartNewGameMsg(false);
       setGameStarted(true);
       setTimeCount(0);
+      setCounter(3);
     }
   }
 
@@ -116,8 +127,22 @@ export default function App() {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
 
-  const diceOverLayClass = `${(isWon || !gameStarted) ? "visible-overlay" : ""} dice-overlay`;
-  const diceOverLayText = isWon ? "You won!" : "";
+  let diceOverLayClass = 'dice-overlay';
+  if (isWon || !gameStarted || counter > 0) {
+    diceOverLayClass += ' visible-overlay';
+  }
+
+  let diceOverLayText;
+  if (isWon) {
+    diceOverLayText = "You won!";
+  }
+  else if (gameStarted && counter > 0) {
+    diceOverLayText = counter;
+  }
+  else {
+    diceOverLayText = "";
+  }
+  
   const gameButtonText = gameStarted ? "Stop" : "New game";
 
   return (

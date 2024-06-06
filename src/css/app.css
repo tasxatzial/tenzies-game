@@ -143,7 +143,7 @@ main {
   background-color: rgb(var(--game-bg-color) / 0.9);
   color: var(--color-primary-accent);
   display: flex;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 600;
   inset: -2px;
   justify-content: center;
