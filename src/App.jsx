@@ -4,57 +4,68 @@ import Die from './components/Die.jsx';
 import Time from './components/Time.jsx';
 
 export default function App() {
+  const countdownDuration = 3;
+
+  /*---------------- STATE ----------------*/
   const [dice, setDice] = React.useState(() => {
     return initializeDice();
   });
   const [isWon, setIsWon] = React.useState(false);
+  const [time, setTime] = React.useState(0);
+  const [countdown, setCountdown] = React.useState(0);
   const [gameStarted, setGameStarted] = React.useState(false);
-  const [timeCount, setTimeCount] = React.useState(0);
-  const [counter, setCounter] = React.useState(3);
   const [bestTimeCount, setBestTimeCount] = React.useState(() => {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
   });
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
+  /*---------------- REFS ----------------*/
+  const countInterval = React.useRef(null);
+  const timeFirstStarted = React.useRef(false);
+
+  /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
-    const firstDieValue = dice[0].value;
-    const gameOver = dice.every(die => die.value === firstDieValue && die.isHeld);
-    if (gameOver) {
-      setIsWon(true);
-      setGameStarted(false);
-      if (timeCount < bestTimeCount || bestTimeCount === 0) {
-        setBestTimeCount(timeCount);
-        localStorage.setItem('tenzies-best-time-count', timeCount);
+    if (!gameStarted) {
+      return;
+    }
+    if (timeFirstStarted.current) {
+      countInterval.current = setInterval(() => {
+        setTime(prevTimeCount => prevTimeCount + 1);
+      }, 100);
+      timeFirstStarted.current = false;
+    }
+    else {
+      const firstDieValue = dice[0].value;
+      const gameOver = dice.every(die => die.value === firstDieValue && die.isHeld);
+      if (gameOver) {
+        setIsWon(true);
+        setGameStarted(false);
+        clearInterval(countInterval.current);
+        if (time < bestTimeCount || bestTimeCount === 0) {
+          setBestTimeCount(time);
+          localStorage.setItem('tenzies-best-time-count', time);
+        }
       }
     }
   }, [dice]);
 
   React.useEffect(() => {
-    let interval;
-    if (gameStarted) {
-      console.log(counter)
-      if (counter > 0) {
-        console.log(counter)
-        interval = setInterval(() => {
-          setCounter(prevTimeCount => prevTimeCount - 1);
-        }, 1000);
-      }
-      else {
-        console.log(1)
-        clearInterval(interval);
-        interval = setInterval(() => {
-          setTimeCount(prevTimeCount =>  prevTimeCount + 1);
-        }, 100)
-      }
+    if (!gameStarted) {
+      return;
     }
-    else {
-      clearInterval(interval);
+    if (countdown === countdownDuration) {
+      countInterval.current = setInterval(() => {
+        setCountdown(prevTimeCount => prevTimeCount - 1);
+      }, 1000);
     }
-    return () => {
-      clearInterval(interval);
+    if (countdown === 0) {
+      setDice(() => initializeDice());
+      clearInterval(countInterval.current);
+      timeFirstStarted.current = true;
     }
-  }, [gameStarted, counter]);
+  }, [countdown]);
 
+  /*---------------- FUNCTIONS ----------------*/
   function createDie(id) {
     return {
       id: id,
@@ -90,8 +101,11 @@ export default function App() {
   }
 
   function rollDice() {
-    if (isWon || !gameStarted) {
+    if (!gameStarted) {
       setShowStartNewGameMsg(true);
+      return;
+    }
+    if (countdown > 0) {
       return;
     }
     setDice(prevDice => {
@@ -111,24 +125,25 @@ export default function App() {
   function toggleGame() {
     if (gameStarted) {
       setGameStarted(false);
-      setCounter(3);
+      clearInterval(countInterval.current);
+      setCountdown(0);
     }
     else {
-      setDice(() => initializeDice());
+      setGameStarted(true);
       setIsWon(false);
       setShowStartNewGameMsg(false);
-      setGameStarted(true);
-      setTimeCount(0);
-      setCounter(3);
+      setTime(0);
+      setCountdown(countdownDuration);
     }
   }
 
+  /*---------------- RENDER ----------------*/
   const dieComponents = dice.map(die => {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
 
   let diceOverLayClass = 'dice-overlay';
-  if (isWon || !gameStarted || counter > 0) {
+  if (isWon || !gameStarted || countdown > 0) {
     diceOverLayClass += ' visible-overlay';
   }
 
@@ -136,8 +151,8 @@ export default function App() {
   if (isWon) {
     diceOverLayText = "You won!";
   }
-  else if (gameStarted && counter > 0) {
-    diceOverLayText = counter;
+  else if (countdown > 0) {
+    diceOverLayText = countdown;
   }
   else {
     diceOverLayText = "";
@@ -153,7 +168,7 @@ export default function App() {
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={toggleGame} aria-live="polite">{gameButtonText}</button>
         <div className="times-container">
-          <Time text="Time" time={timeCount} />
+          <Time text="Time" time={time} />
           <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
