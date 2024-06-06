@@ -111,7 +111,8 @@ export default function App() {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
 
-  const diceOverLayClass = `${isWon ? "visible-overlay" : ""} dice-overlay`;
+  const diceOverLayClass = `${(isWon || !gameStarted) ? "visible-overlay" : ""} dice-overlay`;
+  const diceOverLayText = isWon ? "You won!" : "";
 
   return (
     <>
@@ -125,7 +126,7 @@ export default function App() {
           <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
-          <div className={diceOverLayClass} aria-live="polite">You won!</div>
+          <div className={diceOverLayClass} aria-live="polite">{diceOverLayText}</div>
           {dieComponents}
         </div>
         {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
