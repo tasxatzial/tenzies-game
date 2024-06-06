@@ -20,6 +20,10 @@ export default function App() {
     return JSON.parse(localStorage.getItem('tenzies-time-count')) || 0;
   });
 
+  const [bestTimeCount, setBestTimeCount] = React.useState(() => {
+    return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
+  });
+
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   React.useEffect(() => {
@@ -28,6 +32,10 @@ export default function App() {
     if (gameOver) {
       setIsWon(true);
       setGameStarted(false);
+      if (timeCount < bestTimeCount || bestTimeCount === 0) {
+        setBestTimeCount(timeCount);
+        localStorage.setItem('tenzies-best-time-count', timeCount);
+      }
     }
     localStorage.setItem('tenzies-dice', JSON.stringify(dice));
   }, [dice]);
@@ -131,7 +139,7 @@ export default function App() {
         {isWon && <p className="game-won-msg" role="alert">You won!</p>}
         <div className="times-container">
           <Time text="Time" time={timeCount} />
-          <Time text="Best" time={0} />
+          <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
           {dieComponents}
