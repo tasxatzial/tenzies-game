@@ -149,13 +149,13 @@ main {
   justify-content: center;
   opacity: 0;
   position: absolute;
-  transition: opacity 0ms ease-in-out, visibility 0s 0ms;
+  transition: opacity 0ms ease-in-out;
   visibility: hidden;
 }
 
 .visible-overlay {
   opacity: 1;
-  transition: opacity 0.2s ease-in-out, visibility 0s 0s;
+  transition: opacity 0.2s ease-in-out;
   visibility: visible;
 }
 

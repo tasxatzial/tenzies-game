@@ -137,7 +137,7 @@ export default function App() {
     }
   }
 
-  /*---------------- RENDER ----------------*/
+  /*------------------------------------------*/
   const dieComponents = dice.map(die => {
     return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
   });
