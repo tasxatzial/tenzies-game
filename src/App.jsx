@@ -136,12 +136,12 @@ export default function App() {
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={startNewGame}>New game</button>
-        {isWon && <p className="game-won-msg" role="alert">You won!</p>}
         <div className="times-container">
           <Time text="Time" time={timeCount} />
           <Time text="Best" time={bestTimeCount} />
         </div>
         <div className="dice-container">
+          {isWon && <div className="endgame-overlay" aria-live="polite">You won!</div>}
           {dieComponents}
         </div>
         {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}

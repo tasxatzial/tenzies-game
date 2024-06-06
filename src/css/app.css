@@ -1,6 +1,7 @@
 :root {
   --color-primary-accent: #5035FF;
   --color-primary-dark: #4A4E74;
+  --game-bg-color: 245 245 245;
 }
 
 body {
@@ -20,7 +21,7 @@ h1, p {
 }
 
 main {
-  background-color: #F5F5F5;
+  background-color: rgb(var(--game-bg-color));
   border-radius: 0.5rem;
   max-width: 23rem;
   min-width: 10rem;
@@ -58,6 +59,7 @@ main {
   gap: 1.25rem;
   justify-content: center;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .button {
@@ -98,12 +100,6 @@ main {
   top: 1px;
 }
 
-.game-won-msg {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.75em;
-}
-
 .start-new-game-msg {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
@@ -140,6 +136,18 @@ main {
   display: inline-flex;
   justify-content: center;
   width: 0.3em;
+}
+
+.endgame-overlay {
+  align-items: center;
+  background-color: rgb(var(--game-bg-color) / 0.85);
+  color: var(--color-primary-accent);
+  display: flex;
+  font-size: 1.8rem;
+  font-weight: 600;
+  inset: -2px;
+  justify-content: center;
+  position: absolute;
 }
 
 .github-info {
