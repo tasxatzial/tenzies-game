@@ -82,9 +82,9 @@ main {
 
 .new-game-button {
   background-color: white;
-  border: 1px solid rgb(182, 182, 182);
+  border: 1px solid lightgray;
   font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding: 0.6em 1.25em;
 }
 
@@ -108,7 +108,7 @@ main {
 
 .times-container {
   display: flex;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   gap: 1em;
   justify-content: center;
   margin-bottom: 1em;
