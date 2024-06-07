@@ -25,9 +25,6 @@ export default function App() {
 
   /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
-    if (!gameStarted) {
-      return;
-    }
     if (timeFirstStarted.current) {
       countInterval.current = setInterval(() => {
         setTime(prevTimeCount => prevTimeCount + 1);
@@ -41,13 +38,19 @@ export default function App() {
         setIsWon(true);
         setGameStarted(false);
         clearInterval(countInterval.current);
-        if (time < bestTimeCount || bestTimeCount === 0) {
-          setBestTimeCount(time);
-          localStorage.setItem('tenzies-best-time-count', time);
-        }
       }
     }
   }, [dice]);
+
+  React.useEffect(() => {
+    if (!isWon) {
+      return;
+    }
+    if (time < bestTimeCount || bestTimeCount === 0) {
+      setBestTimeCount(time);
+      localStorage.setItem('tenzies-best-time-count', time);
+    }
+  }, [time, bestTimeCount, isWon]);
 
   React.useEffect(() => {
     if (!gameStarted) {
@@ -63,7 +66,7 @@ export default function App() {
       clearInterval(countInterval.current);
       timeFirstStarted.current = true;
     }
-  }, [countdown]);
+  }, [countdown, gameStarted]);
 
   /*---------------- FUNCTIONS ----------------*/
   function createDie(id) {
