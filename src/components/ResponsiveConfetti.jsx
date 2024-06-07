@@ -1,6 +1,6 @@
 import React from 'react';
 import Confetti from 'react-confetti';
-import useScreenSize from '../js/useScreenSize.js';
+import useScreenSize from '../hooks/useScreenSize.js';
 
 export default function ResponsiveConfetti() {
   const screenSize = useScreenSize();

@@ -12,32 +12,32 @@ export default function App() {
   });
   const [isWon, setIsWon] = React.useState(false);
   const [time, setTime] = React.useState(0);
-  const [countdown, setCountdown] = React.useState(0);
-  const [gameStarted, setGameStarted] = React.useState(false);
-  const [bestTimeCount, setBestTimeCount] = React.useState(() => {
+  const [countdownTime, setCountdownTime] = React.useState(0);
+  const [isStarted, setIsStarted] = React.useState(false);
+  const [bestTime, setBestTime] = React.useState(() => {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
   });
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   /*---------------- REFS ----------------*/
-  const countInterval = React.useRef(null);
-  const timeFirstStarted = React.useRef(false);
+  const intervalRef = React.useRef(null);
+  const timeIsStoppedRef = React.useRef(false);
 
   /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
-    if (timeFirstStarted.current) {
-      countInterval.current = setInterval(() => {
+    if (timeIsStoppedRef.current) {
+      intervalRef.current = setInterval(() => {
         setTime(prevTimeCount => prevTimeCount + 1);
       }, 100);
-      timeFirstStarted.current = false;
+      timeIsStoppedRef.current = false;
     }
     else {
       const firstDieValue = dice[0].value;
       const gameOver = dice.every(die => die.value === firstDieValue && die.isHeld);
       if (gameOver) {
         setIsWon(true);
-        setGameStarted(false);
-        clearInterval(countInterval.current);
+        setIsStarted(false);
+        clearInterval(intervalRef.current);
       }
     }
   }, [dice]);
@@ -46,27 +46,27 @@ export default function App() {
     if (!isWon) {
       return;
     }
-    if (time < bestTimeCount || bestTimeCount === 0) {
-      setBestTimeCount(time);
+    if (time < bestTime || bestTime === 0) {
+      setBestTime(time);
       localStorage.setItem('tenzies-best-time-count', time);
     }
-  }, [time, bestTimeCount, isWon]);
+  }, [time, bestTime, isWon]);
 
   React.useEffect(() => {
-    if (!gameStarted) {
+    if (!isStarted) {
       return;
     }
-    if (countdown === countdownDuration) {
-      countInterval.current = setInterval(() => {
-        setCountdown(prevTimeCount => prevTimeCount - 1);
+    if (countdownTime === countdownDuration) {
+      intervalRef.current = setInterval(() => {
+        setCountdownTime(prevTimeCount => prevTimeCount - 1);
       }, 1000);
     }
-    if (countdown === 0) {
+    if (countdownTime === 0) {
       setDice(() => initializeDice());
-      clearInterval(countInterval.current);
-      timeFirstStarted.current = true;
+      clearInterval(intervalRef.current);
+      timeIsStoppedRef.current = true;
     }
-  }, [countdown, gameStarted]);
+  }, [countdownTime, isStarted]);
 
   /*---------------- FUNCTIONS ----------------*/
   function createDie(id) {
@@ -85,58 +85,41 @@ export default function App() {
     return dice;
   }
 
-  function holdDie(id) {
-    setDice(prevDice => {
-      const newDice = [];
-      prevDice.forEach(die => {
-        if (die.id === id) {
-          newDice.push({
-            ...die,
-            isHeld: !die.isHeld
-          });
-        }
-        else {
-          newDice.push(die);
-        }
-      });
-      return newDice;
-    });
+  function holdDie(dieId) {
+    setDice(prevDice => prevDice.map(die =>
+      die.id === dieId
+        ? {...die, isHeld: !die.isHeld}
+        : die
+    ));
   }
 
   function rollDice() {
-    if (!gameStarted) {
+    if (!isStarted) {
       setShowStartNewGameMsg(true);
       return;
     }
-    if (countdown > 0) {
+    if (countdownTime > 0) {
       return;
     }
-    setDice(prevDice => {
-      const newDice = [];
-      prevDice.forEach(die => {
-        if (die.isHeld) {
-          newDice.push(die);
-        }
-        else {
-          newDice.push(createDie(die.id));
-        }
-      });
-      return newDice;
-    });
+    setDice(prevDice => prevDice.map(die =>
+      die.isHeld
+        ? die
+        : createDie(die.id)
+    ));
   }
 
   function toggleGame() {
-    if (gameStarted) {
-      setGameStarted(false);
-      clearInterval(countInterval.current);
-      setCountdown(0);
+    if (isStarted) {
+      setIsStarted(false);
+      clearInterval(intervalRef.current);
+      setCountdownTime(0);
     }
     else {
-      setGameStarted(true);
+      setIsStarted(true);
       setIsWon(false);
       setShowStartNewGameMsg(false);
       setTime(0);
-      setCountdown(countdownDuration);
+      setCountdownTime(countdownDuration);
     }
   }
 
@@ -146,10 +129,10 @@ export default function App() {
   });
 
   let diceOverLayClass = 'dice-overlay';
-  if (isWon || !gameStarted || countdown > 0) {
+  if (isWon || !isStarted || countdownTime > 0) {
     diceOverLayClass += ' visible-overlay';
   }
-  if (countdown > 0) {
+  if (countdownTime > 0) {
     diceOverLayClass += ' huge-overlay-text';
   }
 
@@ -157,14 +140,14 @@ export default function App() {
   if (isWon) {
     diceOverLayText = "You won!";
   }
-  else if (countdown > 0) {
-    diceOverLayText = countdown;
+  else if (countdownTime > 0) {
+    diceOverLayText = countdownTime;
   }
   else {
     diceOverLayText = "";
   }
   
-  const gameButtonText = gameStarted ? "Stop" : "New game";
+  const gameButtonText = isStarted ? "Stop" : "New game";
 
   return (
     <>
@@ -175,7 +158,7 @@ export default function App() {
         <button className="button new-game-button" onClick={toggleGame} aria-live="polite">{gameButtonText}</button>
         <div className="times-container">
           <Time text="Time" time={time} />
-          <Time text="Best" time={bestTimeCount} />
+          <Time text="Best" time={bestTime} />
         </div>
         <div className="dice-container">
           <div className={diceOverLayClass} aria-live="polite">{diceOverLayText}</div>
