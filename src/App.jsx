@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
 import Die from './components/Die.jsx';
-import Time from './components/Time.jsx';
+import TimeContainer from './components/TimeContainer.jsx';
 
 export default function App() {
   const countdownDuration = 3;
@@ -16,7 +16,7 @@ export default function App() {
   const [time, setTime] = React.useState(0);
   const [countdownTime, setCountdownTime] = React.useState(countdownDuration);
   const [bestTime, setBestTime] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-best-time-count')) || 0;
+    return JSON.parse(localStorage.getItem('tenzies-best-time-count'));
   });
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
@@ -42,7 +42,7 @@ export default function App() {
         setTime(prevTimeCount => prevTimeCount + 1);
       }, 100);
     }
-    else if (time < bestTime || bestTime === 0) {
+    else if (time < bestTime || !bestTime) {
       setBestTime(time);
       localStorage.setItem('tenzies-best-time-count', time);
     }
@@ -158,8 +158,8 @@ export default function App() {
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={toggleGame} aria-live="polite">{gameButtonText}</button>
         <div className="times-container">
-          <Time text="Time" time={time} />
-          <Time text="Best" time={bestTime} />
+          <TimeContainer text="Time" time={time} />
+          <TimeContainer text="Best" time={bestTime} />
         </div>
         <div className="dice-container">
           <div className={diceOverLayClass} aria-live="polite">{diceOverLayText}</div>
