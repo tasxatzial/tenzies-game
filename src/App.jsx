@@ -37,7 +37,7 @@ export default function App() {
     if (!isTimeStarted && !isWon) {
       return;
     }
-    if (isWon && (time < bestTime || bestTime === 0)) {
+    if (isWon && (time < bestTime || !bestTime)) {
       setBestTime(time);
       localStorage.setItem('tenzies-best-time-count', time);
     }
