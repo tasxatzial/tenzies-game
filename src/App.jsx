@@ -21,6 +21,7 @@ export default function App() {
   const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   /*---------------- EFFECTS ----------------*/
+
   React.useEffect(() => {
     if (isTimeStarted) {
       const firstDieValue = dice[0].value;
@@ -33,24 +34,26 @@ export default function App() {
   }, [dice, isTimeStarted]);
 
   React.useEffect(() => {
-    let timeout;
     if (!isTimeStarted && !isWon) {
       return;
     }
-    if (isTimeStarted) {
-      timeout = setTimeout(() => {
-        setTime(prevTimeCount => prevTimeCount + 1);
-      }, 100);
-    }
-    else if (time < bestTime || !bestTime) {
+    if (isWon && (time < bestTime || bestTime === 0)) {
       setBestTime(time);
       localStorage.setItem('tenzies-best-time-count', time);
     }
-    return (() => clearTimeout(timeout));
   }, [time, bestTime, isWon, isTimeStarted]);
 
   React.useEffect(() => {
-    let timeout;
+    if (!isTimeStarted) {
+      return;
+    }
+    const interval = setInterval(() => {
+      setTime(t => t + 1);
+    }, 100);
+    return () => clearInterval(interval);
+  }, [isTimeStarted]);
+
+  React.useEffect(() => {
     if (!isCountdownStarted) {
       return;
     }
@@ -59,13 +62,17 @@ export default function App() {
       setIsTimeStarted(true);
       setIsCountdownStarted(false);
     }
-    else {
-      timeout = setTimeout(() => {
-        setCountdownTime(prevTimeCount => prevTimeCount - 1);
-      }, 1000);
-    }
-    return (() => clearTimeout(timeout));
   }, [countdownTime, isCountdownStarted]);
+
+  React.useEffect(() => {
+    if (!isCountdownStarted) {
+      return;
+    }
+    const interval = setInterval(() => {
+      setCountdownTime(t => t - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isCountdownStarted]);
 
   /*---------------- FUNCTIONS ----------------*/
   function createDie(id) {
