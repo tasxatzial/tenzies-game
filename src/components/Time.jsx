@@ -11,17 +11,25 @@ export default function Time({ time }) {
       return <TimeDigit digit={digit} key={i} />;
     });
 
-    const fractionalDigits = [...fractionalSecs].map((digit, i) => {
-      return <TimeDigit digit={digit} key={i} />;
-    });
+    const fractionalDigit = <TimeDigit digit={fractionalSecs} />;
 
     return (
       <>
-        {secDigits}<span className="time-dot">.</span>{fractionalDigits} s
+        {secDigits}
+        <span className="time-dot">.</span>
+        {fractionalDigit}
+        {" "}
+        <span aria-hidden="true">s</span>
+        <span className="sr-only">seconds</span>
       </>
     );
   }
   else {
-    return <>–</>;
+    return (
+      <>
+        –
+        <span className="sr-only">unset</span>
+      </>
+    );
   }
 }
