@@ -18,7 +18,7 @@ export default function Time({ time }) {
         {secDigits}
         <span className="time-dot">.</span>
         {fractionalDigit}
-        {" "}
+        {' '}
         <span aria-hidden="true">s</span>
         <span className="sr-only">seconds</span>
       </>

@@ -8,8 +8,8 @@ export default function Die({die, holdDie}) {
     return <DieDot key={dot.id} name={dot.name} />
   });
 
-  const srText = `${die.isHeld ? "Frozen " : ""} ${die.value}`;
-  const className = `die-button ${die.isHeld ? "is-held" : ""}`;
+  const srText = `${die.isHeld ? 'Frozen ' : ''} ${die.value}`;
+  const className = `die-button ${die.isHeld ? 'is-held' : ''}`;
 
   return (
     <div className="die-container">

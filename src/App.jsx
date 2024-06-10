@@ -146,16 +146,16 @@ export default function App() {
 
   let diceOverLayText;
   if (isWon) {
-    diceOverLayText = "You won!";
+    diceOverLayText = 'You won!';
   }
   else if (isCountdownStarted) {
     diceOverLayText = countdownTime;
   }
   else {
-    diceOverLayText = "";
+    diceOverLayText = '';
   }
   
-  const gameButtonText = (isCountdownStarted || isTimeStarted) ? "Stop" : "New game";
+  const gameButtonText = (isCountdownStarted || isTimeStarted) ? 'Stop' : 'New game';
 
   return (
     <>
