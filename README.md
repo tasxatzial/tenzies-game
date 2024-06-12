@@ -1,21 +1,23 @@
 # Tenzies game
 
-A game with a very simple purpose: Roll and match all ten dice to the same number.
+A game with a very simple purpose: Roll and match all ten dice to the same number as quickly as possible.
 
 This is a project from the React basics module of the [Frontend Career Path](https://scrimba.com/learn/frontend) course on [Scrimba](https://scrimba.com).
 
 ## Implementation
 
-While my implementation follows the course content loosely, it isn't an exact match of the design or the implementation shown in the course. I've made some intentional changes, with the aim of improving upon the provided design. Here's a non-exhaustive list of the updates:
+I've written the app from the ground up, so it has very few things in common with the course implementation. I've also added many extra things and improved upon others. Here's a non-exhaustive list of the changes:
 
-* Page is responsive.
-* Game is accessible + screen reader friendly.
-* User can start a new game.
-* Dice are represented by dots, whereas in the course, the dice are represented by simple numbers.
+* App is responsive.
+* App is accessible + screen reader friendly.
+* User can start a new game, or stop a game that is already in progress.
+* Dice are represented by dots rather than just numbers.
 * A message is displayed when the game is won.
-* A message is displayed to start a new game when the current game is won and the roll button is clicked.
-* Game state is saved in localStorage.
-* The instructions clearly state when the game is won.
+* A message is displayed to start a new game the roll button is clicked and there's no game in progress.
+* A timer has been added.
+* The best time is both displayed and stored in localStorage, ensuring it persists even when the page is reloaded.
+* A countdown from 3, 2, 1 has been added at the start of each game.
+* The instructions clearly state how to win the game.
 * A custom hook is used to make Confetti properly respond to window resize events.
 
 ## Dependencies
