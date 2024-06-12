@@ -133,7 +133,7 @@ export default function App() {
 
   /*------------------------------------------*/
   const dieComponents = dice.map(die => {
-    return <Die key={die.id} die={die} holdDie={() => holdDie(die.id)} />
+    return <Die key={die.id} die={die} isEnabled={isTimeStarted} holdDie={() => holdDie(die.id)} />
   });
 
   let diceOverLayClass = 'dice-overlay';
