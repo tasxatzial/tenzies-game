@@ -1,7 +1,7 @@
 :root {
   --color-primary-accent: #5035FF;
   --color-primary-dark: #4A4E74;
-  --game-bg-color: 245 245 245;
+  --tenzies-bg-color: 245 245 245;
 }
 
 body {
@@ -20,23 +20,11 @@ h1, p {
 }
 
 main {
-  background-color: rgb(var(--game-bg-color));
+  background-color: rgb(var(--tenzies-bg-color));
   border-radius: 0.5rem;
   max-width: 23rem;
   min-width: 10rem;
   padding: 2rem;
-}
-
-.sr-only {
-  position: absolute; 
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px; 
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .title {
@@ -77,6 +65,11 @@ main {
   color: white;
   font-size: 1.25rem;
   padding: 0.6em 1.75em;
+}
+
+.button-disabled {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .new-game-button {
@@ -139,12 +132,12 @@ main {
 
 .dice-overlay {
   align-items: center;
-  background-color: rgb(var(--game-bg-color) / 0.9);
+  background-color: rgb(var(--tenzies-bg-color) / 0.9);
   color: var(--color-primary-accent);
   display: flex;
   font-size: 2.5rem;
   font-weight: 600;
-  inset: -2px;
+  inset: -4px;
   justify-content: center;
   opacity: 0;
   position: absolute;

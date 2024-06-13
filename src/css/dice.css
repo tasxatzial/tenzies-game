@@ -26,10 +26,6 @@
   background-color: #59E391;
 }
 
-.die-button.is-disabled {
-    pointer-events: none;
-}
-
 .die-dot {
   aspect-ratio: 1;
   background-image: radial-gradient(rgb(90, 90, 90), black);

@@ -8,21 +8,15 @@ export default function Die({die, holdDie, isEnabled}) {
     return <DieDot key={dot.id} name={dot.name} />
   });
 
-  const srText = `${die.isHeld ? 'Frozen ' : ''} ${die.value}`;
   let className = 'die-button';
   if (die.isHeld) {
     className += ' is-held';
   }
-  if (die.isEnabled) {
-    className += ' is-enabled';
-  }
-  const tabIndex = isEnabled ? 0 : -1;
 
   return (
     <div className="die-container">
-      <button className={className} onClick={holdDie} tabIndex={tabIndex}>
+      <button className={className} onClick={holdDie} disabled={!isEnabled}>
         {dieDotsComponents}
-        <span className="sr-only" aria-live="polite">{srText}</span>
       </button>
     </div>
   )

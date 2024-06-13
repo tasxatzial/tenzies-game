@@ -92,6 +92,10 @@ export default function App() {
   }
 
   function holdDie(dieId) {
+    if (!isTimeStarted && !isCountdownStarted) {
+      setShowStartNewGameMsg(true);
+      return;
+    }
     setDice(prevDice => prevDice.map(die =>
       die.id === dieId
         ? {...die, isHeld: !die.isHeld}
@@ -144,6 +148,11 @@ export default function App() {
     diceOverLayClass += ' huge-overlay-text';
   }
 
+  let rollButtonClass = 'button roll-button';
+  if (!isTimeStarted) {
+    rollButtonClass += ' button-disabled';
+  }
+
   let diceOverLayText;
   if (isWon) {
     diceOverLayText = 'You won!';
@@ -155,7 +164,7 @@ export default function App() {
     diceOverLayText = '';
   }
   
-  const gameButtonText = (isCountdownStarted || isTimeStarted) ? 'Stop' : 'New game';
+  const newGameButtonText = (isCountdownStarted || isTimeStarted) ? 'Stop' : 'New game';
 
   return (
     <>
@@ -163,17 +172,16 @@ export default function App() {
         {isWon && <ResponsiveConfetti />}
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
-        <button className="button new-game-button" onClick={toggleGame} aria-live="polite">{gameButtonText}</button>
+        <button className="button new-game-button" onClick={toggleGame}>{newGameButtonText}</button>
         <div className="times-container">
           <TimeContainer text="Time" time={time} />
           <TimeContainer text="Best" time={bestTime} />
         </div>
         <div className="dice-container">
-          <div className={diceOverLayClass} aria-live="polite">{diceOverLayText}</div>
+          <div className={diceOverLayClass}>{diceOverLayText}</div>
           {dieComponents}
         </div>
-        {showStartNewGameMsg && <p className="start-new-game-msg" role="alert">Please start a new game.</p>}
-        <button className="button roll-button" onClick={rollDice}>Roll</button>
+        <button className={rollButtonClass} onClick={rollDice} disabled={!isTimeStarted}>Roll</button>
       </main>
       <footer>
         <p className="github-info"><a href="https://github.com/tasxatzial/tenzies-game" className="github-link">See the project on GitHub</a></p>
