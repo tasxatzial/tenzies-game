@@ -9,7 +9,6 @@ This is a project from the React basics module of the [Frontend Career Path](htt
 I've written the app from the ground up, so it has very few things in common with the course implementation. I've also added many extra things and improved upon others. Here's a non-exhaustive list of the changes:
 
 * App is responsive.
-* App is accessible + screen reader friendly.
 * User can start a new game, or stop a game that is already in progress.
 * Dice are represented by dots rather than just numbers.
 * A message is displayed when the game is won.
