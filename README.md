@@ -12,7 +12,6 @@ I've written the app from the ground up, so it has very few things in common wit
 * User can start a new game, or stop a game that is already in progress.
 * Dice are represented by dots rather than just numbers.
 * A message is displayed when the game is won.
-* A message is displayed to start a new game the roll button is clicked and there's no game in progress.
 * A timer has been added.
 * The best time is both displayed and stored in localStorage, ensuring it persists even when the page is reloaded.
 * A countdown from 3, 2, 1 has been added at the start of each game.
