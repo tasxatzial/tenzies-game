@@ -18,7 +18,6 @@ export default function App() {
   const [bestTime, setBestTime] = React.useState(() => {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count'));
   });
-  const [showStartNewGameMsg, setShowStartNewGameMsg] = React.useState(false);
 
   /*---------------- EFFECTS ----------------*/
 
@@ -92,8 +91,7 @@ export default function App() {
   }
 
   function holdDie(dieId) {
-    if (!isTimeStarted && !isCountdownStarted) {
-      setShowStartNewGameMsg(true);
+    if (!isTimeStarted) {
       return;
     }
     setDice(prevDice => prevDice.map(die =>
@@ -104,11 +102,7 @@ export default function App() {
   }
 
   function rollDice() {
-    if (!isTimeStarted && !isCountdownStarted) {
-      setShowStartNewGameMsg(true);
-      return;
-    }
-    if (countdownTime > 0) {
+    if (!isTimeStarted) {
       return;
     }
     setDice(prevDice => prevDice.map(die =>
@@ -129,7 +123,6 @@ export default function App() {
     else {
       setIsWon(false);
       setTime(0);
-      setShowStartNewGameMsg(false);
       setCountdownTime(countdownDuration);
       setIsCountdownStarted(true);
     }
