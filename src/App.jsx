@@ -150,7 +150,7 @@ export default function App() {
 
   let rollButtonClass = 'button roll-button';
   if (!isTimeStarted) {
-    rollButtonClass += ' button-disabled';
+    rollButtonClass += ' button-disabled roll-button-disabled';
   }
 
   let diceOverLayText;

@@ -12,6 +12,9 @@ export default function Die({die, holdDie, isEnabled}) {
   if (die.isHeld) {
     className += ' is-held';
   }
+  if (!isEnabled) {
+    className += ' button-disabled';
+  }
 
   return (
     <div className="die-container">

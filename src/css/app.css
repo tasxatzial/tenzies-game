@@ -67,9 +67,8 @@ main {
   padding: 0.6em 1.75em;
 }
 
-.button-disabled {
+.roll-button-disabled {
   opacity: 0.3;
-  pointer-events: none;
 }
 
 .new-game-button {
@@ -84,6 +83,10 @@ main {
 .die-button:focus-visible {
   outline: 2px dashed black;
   outline-offset: 2px;
+}
+
+.button-disabled {
+  pointer-events: none;
 }
 
 .button:active {
