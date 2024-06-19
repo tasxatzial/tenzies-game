@@ -124,13 +124,13 @@ main {
 .time-digit {
   display: inline-flex;
   justify-content: center;
-  width: 0.62em;
+  width: 0.65em;
 }
 
 .time-dot {
   display: inline-flex;
   justify-content: center;
-  width: 0.3em;
+  width: 0.35em;
 }
 
 .dice-overlay {
