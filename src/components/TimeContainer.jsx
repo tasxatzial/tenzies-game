@@ -9,5 +9,5 @@ export default function TimeContainer({time, text}) {
         <Time time={time} />
       </div>
     </div>
-  );
+  )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import TimeDigit from './TimeDigit';
 
 export default function Time({ time }) {
-  if (time != null && time != undefined) {
+  if (time !== null && time !== undefined) {
     const timeStr = time.toString();
     const wholeSecs = timeStr.substring(0, timeStr.length - 1) || '0';
     const fractionalSecs = timeStr.substring(timeStr.length - 1);
@@ -20,13 +20,11 @@ export default function Time({ time }) {
         {fractionalDigit}
         {' s'}
       </>
-    );
+    )
   }
-  else {
-    return (
-      <>
-        –
-      </>
-    );
-  }
+  return (
+    <>
+      –
+    </>
+  )
 }
