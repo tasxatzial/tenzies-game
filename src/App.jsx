@@ -19,8 +19,19 @@ export default function App() {
     return JSON.parse(localStorage.getItem('tenzies-best-time-count'));
   });
 
-  /*---------------- EFFECTS ----------------*/
+  /*---------------- CALLBACKS ----------------*/
+  const holdDie = React.useCallback((id) => {
+    if (!isTimeStarted) {
+      return;
+    }
+    setDice(prevDice => prevDice.map(die =>
+      die.id === id
+        ? {...die, isHeld: !die.isHeld}
+        : die
+    ));
+  }, [isTimeStarted, setDice]);
 
+  /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
     if (isTimeStarted) {
       const firstDieValue = dice[0].value;
@@ -90,17 +101,6 @@ export default function App() {
     return dice;
   }
 
-  function holdDie(dieId) {
-    if (!isTimeStarted) {
-      return;
-    }
-    setDice(prevDice => prevDice.map(die =>
-      die.id === dieId
-        ? {...die, isHeld: !die.isHeld}
-        : die
-    ));
-  }
-
   function rollDice() {
     if (!isTimeStarted) {
       return;
@@ -129,8 +129,9 @@ export default function App() {
   }
 
   /*------------------------------------------*/
+
   const dieComponents = dice.map(die => {
-    return <Die key={die.id} die={die} isEnabled={isTimeStarted} holdDie={() => holdDie(die.id)} />
+    return <Die key={die.id} die={die} isEnabled={isTimeStarted} holdDie={holdDie} />
   });
 
   let diceOverLayClass = 'dice-overlay';
