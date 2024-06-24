@@ -1,5 +1,4 @@
-import React from 'react';
-import TimeDigit from './TimeDigit';
+import TimeDigit from './TimeDigit.jsx';
 
 export default function Time({ time }) {
   if (time !== null && time !== undefined) {
@@ -14,17 +13,17 @@ export default function Time({ time }) {
     const fractionalDigit = <TimeDigit digit={fractionalSecs} />;
 
     return (
-      <>
+      <div className="time-counter">
         {secDigits}
         <span className="time-dot">.</span>
         {fractionalDigit}
         {' s'}
-      </>
+      </div>
     )
   }
   return (
-    <>
+    <div className="time-counter">
       –
-    </>
+    </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
-import Die from './components/Die.jsx';
-import TimeContainer from './components/TimeContainer.jsx';
+import ResponsiveConfetti from './ResponsiveConfetti.jsx';
+import Die from './Die/Die.jsx';
+import TimeContainer from './Time/TimeContainer.jsx';
 
 export default function App() {
   const countdownDuration = 3;
@@ -29,7 +29,7 @@ export default function App() {
         ? {...die, isHeld: !die.isHeld}
         : die
     ));
-  }, [isTimeStarted, setDice]);
+  }, [isTimeStarted]);
 
   /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
@@ -68,7 +68,7 @@ export default function App() {
       return;
     }
     if (countdownTime === 0) {
-      setDice(() => initializeDice());
+      setDice(initializeDice());
       setIsTimeStarted(true);
       setIsCountdownStarted(false);
     }

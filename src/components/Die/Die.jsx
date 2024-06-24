@@ -1,11 +1,11 @@
 import React from 'react';
 import DieDot from './DieDot.jsx';
-import createDieDots from '../js/createDieDots.js';
+import createDieDotPositions from '../../js/createDieDotPositions.js';
 
 function Die({die, holdDie, isEnabled}) {
-  const dieDots = createDieDots(die.value);
-  const dieDotsComponents = dieDots.map(dot => {
-    return <DieDot key={dot.id} name={dot.name} />
+  const dotPositions = createDieDotPositions(die.value);
+  const dotComponents = dotPositions.map(position => {
+    return <DieDot key={position} position={position} />
   });
 
   let className = 'die-button';
@@ -19,7 +19,7 @@ function Die({die, holdDie, isEnabled}) {
   return (
     <div className="die-container">
       <button className={className} onClick={() => holdDie(die.id)} disabled={!isEnabled}>
-        {dieDotsComponents}
+        {dotComponents}
       </button>
     </div>
   )
