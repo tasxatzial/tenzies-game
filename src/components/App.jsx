@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveConfetti from './ResponsiveConfetti.jsx';
 import Die from './Die/Die.jsx';
-import TimeContainer from './Time/TimeContainer.jsx';
+import TimeCounters from './TimeCounters/TimeCounters.jsx';
 
 export default function App() {
   const countdownDuration = 3;
@@ -13,11 +13,7 @@ export default function App() {
   const [isWon, setIsWon] = React.useState(false);
   const [isCountdownStarted, setIsCountdownStarted] = React.useState(false);
   const [isTimeStarted, setIsTimeStarted] = React.useState(false);
-  const [time, setTime] = React.useState(0);
   const [countdownTime, setCountdownTime] = React.useState(countdownDuration);
-  const [bestTime, setBestTime] = React.useState(() => {
-    return JSON.parse(localStorage.getItem('tenzies-best-time-count'));
-  });
 
   /*---------------- CALLBACKS ----------------*/
   const holdDie = React.useCallback((id) => {
@@ -43,25 +39,6 @@ export default function App() {
     }
   }, [dice, isTimeStarted]);
 
-  React.useEffect(() => {
-    if (!isTimeStarted && !isWon) {
-      return;
-    }
-    if (isWon && (time < bestTime || !bestTime)) {
-      setBestTime(time);
-      localStorage.setItem('tenzies-best-time-count', time);
-    }
-  }, [time, bestTime, isWon, isTimeStarted]);
-
-  React.useEffect(() => {
-    if (!isTimeStarted) {
-      return;
-    }
-    const interval = setInterval(() => {
-      setTime(t => t + 1);
-    }, 100);
-    return () => clearInterval(interval);
-  }, [isTimeStarted]);
 
   React.useEffect(() => {
     if (!isCountdownStarted) {
@@ -122,7 +99,6 @@ export default function App() {
     }
     else {
       setIsWon(false);
-      setTime(0);
       setCountdownTime(countdownDuration);
       setIsCountdownStarted(true);
     }
@@ -167,10 +143,7 @@ export default function App() {
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={toggleGame}>{newGameButtonText}</button>
-        <div className="times-container">
-          <TimeContainer text="Time" time={time} />
-          <TimeContainer text="Best" time={bestTime} />
-        </div>
+        <TimeCounters isTimeStarted={isTimeStarted} isWon={isWon} isCountdownStarted={isCountdownStarted}/>
         <div className="dice-container">
           <div className={diceOverLayClass}>{diceOverLayText}</div>
           {dieComponents}
