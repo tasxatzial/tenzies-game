@@ -1,9 +1,9 @@
 import Time from './Time.jsx';
 
-export default function TimeDisplay({time, text}) {
+export default function TimeDisplay({time, label}) {
   return (
     <div className="time-container">
-      <div className="time-text">{text}</div>
+      <div className="time-label">{label}</div>
       <Time time={time}/>
     </div>
   )

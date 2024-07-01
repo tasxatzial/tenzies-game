@@ -113,11 +113,11 @@ main {
   width: 4em;
 }
 
-.time-text {
+.time-label {
   border-bottom: 2px solid lightgray;
 }
 
-.time-counter {
+.time {
   white-space: nowrap;
 }
 

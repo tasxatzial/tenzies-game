@@ -13,7 +13,7 @@ export default function Time({time}) {
     const fractionalDigits = <TimeDigit digit={fractionalSecs} />;
 
     return (
-      <div className="time-counter">
+      <div className="time">
         {wholeDigits}
         <span className="time-dot">.</span>
         {fractionalDigits}
@@ -23,7 +23,7 @@ export default function Time({time}) {
   }
 
   return (
-    <div className="time-counter">
+    <div className="time">
       –
     </div>
   )
