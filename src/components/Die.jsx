@@ -1,11 +1,10 @@
 import React from 'react';
-import DieDot from './DieDot.jsx';
-import createDieDotPositions from '../../js/createDieDotPositions.js';
+import createDieDotPositions from '../js/createDieDotPositions.js';
 
 function Die({die, holdDie, isEnabled}) {
   const dotPositions = createDieDotPositions(die.value);
   const dotComponents = dotPositions.map(position => {
-    return <DieDot key={position} position={position} />
+    return <span key={position} className={`die-dot die-dot-${position}`}></span>
   });
 
   let className = 'die-button';
