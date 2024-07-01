@@ -35,8 +35,8 @@ export default function TimeCounters({isTimeStarted, isWon, isCountdownStarted})
 
   return (
     <div className="times-container">
-      <TimeDisplay text="Time" time={time}/>
-      <TimeDisplay text="Best" time={bestTime}/>
+      <TimeDisplay text="Time" time={time * 100}/>
+      <TimeDisplay text="Best" time={bestTime ? 100 * bestTime : null}/>
     </div>
   )
 }

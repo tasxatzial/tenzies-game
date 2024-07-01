@@ -1,26 +1,27 @@
 import TimeDigit from './TimeDigit.jsx';
 
-export default function Time({ time }) {
-  if (time !== null && time !== undefined) {
+export default function Time({time}) {
+  if (time !== null) {
     const timeStr = time.toString();
-    const wholeSecs = timeStr.substring(0, timeStr.length - 1) || '0';
-    const fractionalSecs = timeStr.substring(timeStr.length - 1);
+    const wholeSecs = timeStr.substring(0, timeStr.length - 3) || '0';
+    const fractionalSecs = timeStr.substring(timeStr.length - 3, timeStr.length - 2) || '0';
 
-    const secDigits = [...wholeSecs].map((digit, i) => {
+    const wholeDigits = [...wholeSecs].map((digit, i) => {
       return <TimeDigit digit={digit} key={i} />;
     });
 
-    const fractionalDigit = <TimeDigit digit={fractionalSecs} />;
+    const fractionalDigits = <TimeDigit digit={fractionalSecs} />;
 
     return (
       <div className="time-counter">
-        {secDigits}
+        {wholeDigits}
         <span className="time-dot">.</span>
-        {fractionalDigit}
+        {fractionalDigits}
         {' s'}
       </div>
     )
   }
+
   return (
     <div className="time-counter">
       –
