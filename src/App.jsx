@@ -1,7 +1,7 @@
 import React from 'react';
-import ResponsiveConfetti from './ResponsiveConfetti.jsx';
-import Die from './Die.jsx';
-import TimeCounters from './Time/TimeCounters.jsx';
+import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
+import Die from './components/Die.jsx';
+import TimeCounters from './components/Time/TimeCounters.jsx';
 
 export default function App() {
   const countdownDuration = 3;

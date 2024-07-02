@@ -1,5 +1,5 @@
 import React from 'react';
-import createDieDotPositions from '../js/createDieDotPositions.js';
+import createDieDotPositions from '../utils/createDieDotPositions.js';
 
 function Die({die, holdDie, isEnabled}) {
   const dotPositions = createDieDotPositions(die.value);
