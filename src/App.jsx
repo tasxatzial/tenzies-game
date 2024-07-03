@@ -2,6 +2,7 @@ import React from 'react';
 import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
 import Die from './components/Die.jsx';
 import TimeCounters from './components/Time/TimeCounters.jsx';
+import useCountdown from './hooks/useCountdown.js';
 
 export default function App() {
   const countdownDuration = 3;
@@ -11,9 +12,7 @@ export default function App() {
     return initializeDice();
   });
   const [isWon, setIsWon] = React.useState(false);
-  const [isCountdownStarted, setIsCountdownStarted] = React.useState(false);
   const [isTimeStarted, setIsTimeStarted] = React.useState(false);
-  const [countdownTime, setCountdownTime] = React.useState(countdownDuration);
 
   /*---------------- CALLBACKS ----------------*/
   const holdDie = React.useCallback((id) => {
@@ -27,6 +26,9 @@ export default function App() {
     ));
   }, [isTimeStarted]);
 
+  /*---------------- HOOKS ----------------*/
+  const {countdownTime, setCountdownTime, isCountdownStarted, setIsCountdownStarted} = useCountdown({countdownDuration, onCountdownEnd});
+
   /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
     if (isTimeStarted) {
@@ -39,29 +41,13 @@ export default function App() {
     }
   }, [dice, isTimeStarted]);
 
-
-  React.useEffect(() => {
-    if (!isCountdownStarted) {
-      return;
-    }
-    if (countdownTime === 0) {
-      setDice(initializeDice());
-      setIsTimeStarted(true);
-      setIsCountdownStarted(false);
-    }
-  }, [countdownTime, isCountdownStarted]);
-
-  React.useEffect(() => {
-    if (!isCountdownStarted) {
-      return;
-    }
-    const interval = setInterval(() => {
-      setCountdownTime(t => t - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isCountdownStarted]);
-
   /*---------------- FUNCTIONS ----------------*/
+  function onCountdownEnd() {
+    setDice(initializeDice());
+    setIsTimeStarted(true);
+    setIsCountdownStarted(false);
+  }
+
   function createDie(id) {
     return {
       id: id,
