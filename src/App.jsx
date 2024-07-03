@@ -1,8 +1,9 @@
 import React from 'react';
-import ResponsiveConfetti from './components/ResponsiveConfetti.jsx';
+import Confetti from 'react-confetti';
 import Die from './components/Die.jsx';
 import TimeCounters from './components/Time/TimeCounters.jsx';
 import useCountdown from './hooks/useCountdown.js';
+import useScreenSize from './hooks/useScreenSize.js';
 
 export default function App() {
   const countdownDuration = 3;
@@ -28,6 +29,7 @@ export default function App() {
 
   /*---------------- HOOKS ----------------*/
   const {countdownTime, setCountdownTime, isCountdownStarted, setIsCountdownStarted} = useCountdown({countdownDuration, onCountdownEnd});
+  const screenSize = useScreenSize();
 
   /*---------------- EFFECTS ----------------*/
   React.useEffect(() => {
@@ -125,7 +127,7 @@ export default function App() {
   return (
     <>
       <main>
-        {isWon && <ResponsiveConfetti />}
+        {isWon && <Confetti width={screenSize.width} height={screenSize.height}/>}
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Click each die to freeze it at its current value between rolls. Game is won when all dice are frozen and have the same value.</p>
         <button className="button new-game-button" onClick={toggleGame}>{newGameButtonText}</button>
