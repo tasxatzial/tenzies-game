@@ -122,7 +122,7 @@ export default function App() {
     diceOverLayText = '';
   }
   
-  const newGameButtonText = (isCountdownStarted || isTimeStarted) ? 'Stop' : 'New game';
+  const newGameButtonText = (isCountdownStarted || isTimeStarted) ? 'Stop game' : 'New game';
 
   return (
     <>
