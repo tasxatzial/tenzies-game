@@ -53,3 +53,5 @@ npm run serve
 ## Screenshots
 
 See [screenshots](screenshots/).
+
+For comparison purposes, an extra screenshot is included that shows the original Scrimba implementation.
