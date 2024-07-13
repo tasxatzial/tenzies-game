@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createDieDotPositions from '../utils/createDieDotPositions.js';
 
-function Die({die, holdDie, isEnabled}) {
+const Die = React.memo(function Die({die, holdDie, isEnabled}) {
   const dotPositions = createDieDotPositions(die.value);
   const dotComponents = dotPositions.map(position => {
     return <span key={position} className={`die-dot die-dot-${position}`}></span>
@@ -23,9 +23,9 @@ function Die({die, holdDie, isEnabled}) {
       </button>
     </div>
   )
-}
+});
 
-export default React.memo(Die);
+export default Die;
 
 Die.propTypes = {
   die: PropTypes.shape({
