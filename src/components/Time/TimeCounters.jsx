@@ -14,7 +14,7 @@ export default function TimeCounters({isTimeStarted, isWon, isCountdownStarted})
     if (isCountdownStarted) {
       setTime(0);
     }
-  }, [isCountdownStarted]);
+  }, [isCountdownStarted, setTime]);
 
   React.useEffect(() => {
     if (!isTimeStarted && !isWon) {
