@@ -26,12 +26,6 @@ This is a basic React project created with Vite. The following dependencies will
 
 ## Run locally
 
-Install the required dependencies:
-
-```bash
-npm install
-```
-
 Run the development version:
 
 ```bash
