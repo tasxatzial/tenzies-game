@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types';
+import nullable from '../../utils/nullablePropsValidator.js';
+
 export default function TimeDisplay({time, label}) {
   let timeElements = null;
   if (time !== null) {
@@ -22,4 +25,9 @@ export default function TimeDisplay({time, label}) {
       </div>
     </div>
   )
+}
+
+TimeDisplay.propTypes = {
+  time: nullable(PropTypes.number.isRequired),
+  label: PropTypes.string.isRequired
 }

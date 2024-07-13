@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createDieDotPositions from '../utils/createDieDotPositions.js';
 
 function Die({die, holdDie, isEnabled}) {
@@ -25,3 +26,13 @@ function Die({die, holdDie, isEnabled}) {
 }
 
 export default React.memo(Die);
+
+Die.propTypes = {
+  die: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    isHeld: PropTypes.bool.isRequired
+  }).isRequired,
+  holdDie: PropTypes.func.isRequired,
+  isEnabled: PropTypes.bool.isRequired
+}

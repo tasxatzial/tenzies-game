@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import useTimer from '../../hooks/useTimer.js';
 import TimeDisplay from './TimeDisplay.jsx';
 
@@ -31,4 +32,10 @@ export default function TimeCounters({isTimeStarted, isWon, isCountdownStarted})
       <TimeDisplay label="Best" time={bestTime ? 100 * bestTime : null}/>
     </div>
   )
+}
+
+TimeCounters.propTypes = {
+  isTimeStarted: PropTypes.bool.isRequired,
+  isWon: PropTypes.bool.isRequired,
+  isCountdownStarted: PropTypes.bool.isRequired
 }
