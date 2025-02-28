@@ -4,6 +4,8 @@ A game with a very simple purpose: Roll and match all ten dice to the same numbe
 
 This is a project from the React basics module of the [Frontend Career Path](https://scrimba.com/learn/frontend) course on [Scrimba](https://scrimba.com).
 
+[Live version](https://tasxatzial.github.io/tenzies-game/)
+
 ## Implementation
 
 I've written the app from the ground up, so it has very few things in common with the course implementation. I've also added many extra things and improved upon others. Here's a non-exhaustive list of the changes:
